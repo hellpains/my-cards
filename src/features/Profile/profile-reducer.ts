@@ -2,7 +2,7 @@ const initialState = {
 
 }
 
-export const profileReducer = (state: InitialStateType = initialState, action: any) => {
+export const profileReducer = (state: InitialStateType = initialState, action: ProfileActionsTypes) => {
     switch (action.type) {
         default:
             return state
@@ -19,3 +19,4 @@ export const profileReducer = (state: InitialStateType = initialState, action: a
 
 // types
 export type InitialStateType = typeof initialState
+export type ProfileActionsTypes = any

@@ -1,6 +1,8 @@
 import {AnyAction, applyMiddleware, combineReducers, createStore} from "redux";
 import thunk, {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
+import {LoginActionsTypes} from "../features/Login/login-reducer";
+import {ProfileActionsTypes} from "../features/Profile/profile-reducer";
 
 export const rootReducer = combineReducers({
 
@@ -18,7 +20,7 @@ export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppRootStateTy
 
 
 
-export type AppRootActionsType=any
+export type AppRootActionsType=LoginActionsTypes|ProfileActionsTypes
 
 // @ts-ignore
 window.store = store;

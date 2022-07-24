@@ -40,6 +40,7 @@ export const Login = () => {
                                 <div className={style.title}>Sign in</div>
                             </FormLabel>
                             <FormGroup>
+
                                 <TextField
                                     variant="standard"
                                     label="Email"
@@ -47,19 +48,14 @@ export const Login = () => {
                                     {...formik.getFieldProps('email')}
                                 />
                                 {/*{formik.errors.email ? <div>{formik.errors.email}</div> : null}*/}
-                                <Box sx={{
-                                        width: 330,
-                                        maxWidth: '100%',
-                                    }}
-                                >
-                                    <TextField
-                                        variant="standard"
-                                        margin="normal"
-                                        type="password"
-                                        label="Password"
-                                        {...formik.getFieldProps('password')}
-                                    />
-                                </Box>
+
+                                <TextField
+                                    variant="standard"
+                                    margin="normal"
+                                    type="password"
+                                    label="Password"
+                                    {...formik.getFieldProps('password')}
+                                />
                                 {/*{formik.errors.password ? <div>{formik.errors.password}</div> : null}*/}
                                 <FormControlLabel
                                     label={'Remember me'}
