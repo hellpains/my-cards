@@ -1,0 +1,61 @@
+.loginBlock {
+    margin: 120px auto;
+    width: 413px;
+    height: 552px;
+    background: #FFFFFF;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1), -1px -1px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+}
+
+.title {
+    margin: 38px auto 0px auto;
+    text-align: center;
+    color: #000000;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 26px;
+    line-height: 32px;
+}
+
+.forgotPass{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    /* identical to box height */
+
+    text-align: center;
+
+    color: #000000;
+
+    width: 139px;
+    height: 36px;
+    margin: 15px auto 40px 190px;
+}
+.text {
+    margin: 31px auto 20px 90px;
+    width: 171px;
+    height: 24px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 24px;
+    color: #000000;
+    opacity: 0.5;
+}
+.signUp{
+    margin: 0px auto 20px auto;
+    width: 65px;
+    height: 24px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+
+    text-align: center;
+    text-decoration-line: underline;
+
+    color: #366EFF;
+}
+
+
