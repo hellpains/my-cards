@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import {Registration} from "../features/Registration/Registration";
 import {Nav} from "../features/Navbar/Navbar";
@@ -8,6 +8,9 @@ import {Profile} from "../features/Profile/Profile";
 import {Login} from "../features/Login/Login";
 import {HashRouter, Navigate, Route, Routes} from 'react-router-dom';
 import {Header} from "../features/Header/Header";
+import {useAppDispatch, useAppSelector} from "./store";
+import {CircularProgress} from "@mui/material";
+import {initializeAppTC} from "./app-reducer";
 
 export enum PATH {
     LOGIN = '/sign-in',
@@ -19,8 +22,23 @@ export enum PATH {
     NOT_FOUND = '/404',
 }
 
-const App = () => (
-    <div className="App">
+export const App = () => {
+    const dispatch = useAppDispatch()
+    const isInitialized = useAppSelector(state => state.app.isInitialized)
+
+    useEffect(() => {
+        dispatch(initializeAppTC())
+    }, [])
+
+
+    if (!isInitialized) {
+        return <div style={{position: 'fixed', top: '33%', left: '50%'}}>
+            <CircularProgress/>
+        </div>
+        // return <Navigate to={'/sign-in'}/>
+    }
+
+    return <div className="App">
         <Header/>
         <Routes>
             <Route path={PATH.LOGIN} element={<Login/>}/>
@@ -34,7 +52,4 @@ const App = () => (
         </Routes>
         <Nav/>
     </div>
-);
-
-export default App;
-//
+}

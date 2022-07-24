@@ -7,12 +7,6 @@ export const cardsAPI = {
 
 }
 
-export type LoginParamsType = {
-    email: string,
-    password: string,
-    rememberMe: boolean,
-    captcha?: string,
-}
 export const authAPI = {
     register(data: any) {
         return instance.post('auth/register', data)
@@ -25,7 +19,7 @@ export const authAPI = {
 
     // отправить на сервер пустой объект
     logout() {
-        return instance.delete('auth/login')
+        return instance.delete('auth/me')
     },
 
     // отправить на сервер пустой объект
@@ -34,8 +28,8 @@ export const authAPI = {
     },
 
     // отправить на сервер name or avatar (url or base64)
-    updatedProfile() {
-        return instance.put('/auth/me')
+    updatedProfile(apiModel:UpdateProfileModelType) {
+        return instance.put('/auth/me',apiModel)
     },
 
     // отправить на сервер email, from, message
@@ -46,7 +40,16 @@ export const authAPI = {
 }
 
 // types
-
+export type LoginParamsType = {
+    email: string,
+    password: string,
+    rememberMe: boolean,
+    captcha?: string,
+}
+export type UpdateProfileModelType={
+    name:string,
+    avatar:string,
+}
 
 
 // settings

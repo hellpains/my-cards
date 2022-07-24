@@ -2,7 +2,6 @@ import React from 'react';
 import style from './Login.module.css'
 import {useFormik} from "formik";
 import {
-    Box,
     Button,
     Checkbox,
     FormControl,
@@ -12,10 +11,14 @@ import {
     Grid,
     TextField
 } from "@mui/material";
-import {NavLink} from "react-router-dom";
+import {Navigate, NavLink} from "react-router-dom";
+import {useAppDispatch, useAppSelector} from "../../app/store";
+import {loginTC} from "./login-reducer";
 
 
 export const Login = () => {
+    const dispatch=useAppDispatch()
+    const isLoggedIn = useAppSelector(state=>state.login.isLoggedIn)
 
     const formik = useFormik({
         initialValues: {
@@ -24,10 +27,15 @@ export const Login = () => {
             rememberMe: false
         },
         onSubmit: values => {
-            alert(JSON.stringify(values))
-            // dispatch(loginTC(values))
+            // alert(JSON.stringify(values))
+            dispatch(loginTC(values.email,values.password,values.rememberMe))
         },
     });
+
+
+    if(isLoggedIn){
+        return <Navigate to={'/profile'}/>
+    }
 
     return (
         <div className={style.loginBlock}>
@@ -76,9 +84,9 @@ export const Login = () => {
                                 </Button>
                             </FormGroup>
 
-                            <NavLink to={'/sign-up'} className={style.text}>
+                            <div className={style.text}>
                                 Don't have an account?
-                            </NavLink>
+                            </div>
                             <NavLink to={'/sign-up'} className={style.signUp}>
                                 <div>
                                     Sign Up
