@@ -6,7 +6,7 @@ import {
     Checkbox,
     FormControl,
     FormControlLabel,
-    FormGroup,
+    FormGroup, FormHelperText,
     FormLabel,
     Grid,
     TextField
@@ -14,27 +14,50 @@ import {
 import {Navigate, NavLink} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../app/store";
 import {loginTC} from "./login-reducer";
+import {PATH} from "../../app/App";
+import {FormikErrorType} from "../Registration/Registration";
 
 
 export const Login = () => {
-    const dispatch=useAppDispatch()
-    const isLoggedIn = useAppSelector(state=>state.login.isLoggedIn)
+    const dispatch = useAppDispatch()
+    const isLoggedIn = useAppSelector(state => state.login.isLoggedIn)
 
     const formik = useFormik({
         initialValues: {
+            disabled: false,
             email: '',
             password: '',
             rememberMe: false
         },
+        validate: values => {
+            const errors: FormikErrorType = {}
+            if (!values.email) {
+                errors.email = 'Required';
+            } else if (
+                !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+            ) {
+                errors.email = 'Invalid email address';
+            }
+
+            if (!values.password) {
+                errors.password = 'Required';
+            } else if (values.password.length < 7) {
+                errors.password = 'Password must be more than 7 characters...';
+            }
+
+
+            return errors;
+
+        },
         onSubmit: values => {
             // alert(JSON.stringify(values))
-            dispatch(loginTC(values.email,values.password,values.rememberMe))
+            dispatch(loginTC(values.email, values.password, values.rememberMe))
         },
     });
 
 
-    if(isLoggedIn){
-        return <Navigate to={'/profile'}/>
+    if (isLoggedIn) {
+        return <Navigate to={PATH.PROFILE}/>
     }
 
     return (
@@ -55,7 +78,11 @@ export const Login = () => {
                                     margin="normal"
                                     {...formik.getFieldProps('email')}
                                 />
-                                {/*{formik.errors.email ? <div>{formik.errors.email}</div> : null}*/}
+                                <FormHelperText style={{marginTop: '-10px'}} error variant="standard"
+                                                id="component-error-text">
+                                    {formik.touched.email && formik.errors.email ?
+                                        <div>{formik.errors.email}</div> : null}
+                                </FormHelperText>
 
                                 <TextField
                                     variant="standard"
@@ -64,7 +91,11 @@ export const Login = () => {
                                     label="Password"
                                     {...formik.getFieldProps('password')}
                                 />
-                                {/*{formik.errors.password ? <div>{formik.errors.password}</div> : null}*/}
+                                <FormHelperText style={{marginTop: '-10px'}} error variant="standard"
+                                                id="component-error-text">
+                                    {formik.touched.password && formik.errors.password ?
+                                        <div>{formik.errors.password}</div> : null}
+                                </FormHelperText>
                                 <FormControlLabel
                                     label={'Remember me'}
                                     control={<Checkbox
@@ -79,7 +110,11 @@ export const Login = () => {
                                     </div>
                                 </NavLink>
 
-                                <Button type={'submit'} variant={'contained'} color={'primary'}>
+                                <Button
+                                    disabled={!formik.isValid || !formik.dirty}
+                                    type={'submit'}
+                                    variant={'contained'}
+                                    color={'primary'}>
                                     Sign In
                                 </Button>
                             </FormGroup>

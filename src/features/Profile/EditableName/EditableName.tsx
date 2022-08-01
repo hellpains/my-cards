@@ -1,5 +1,6 @@
 import React, {ChangeEvent, FC, useState} from "react";
-import {TextField} from "@mui/material";
+import {Box, TextField} from "@mui/material";
+import style from './EditableName.module.css'
 
 type EditableSpanPropsType = {
     title: string
@@ -28,13 +29,29 @@ export const EditableName: FC<EditableSpanPropsType> = React.memo((
     }
 
     return (
-        edit
-            ? <TextField
-                variant={'standard'}
-                onChange={onChangeInputHandler}
-                value={newTitle}
-                onBlur={editOffHandler}
-                autoFocus/>
-            : <span onDoubleClick={editOnHandler}> {title}</span>
+        <div className={style.name}>
+            {edit
+                ?
+                <Box
+                    className={style.div}
+                    sx={{
+                        width: 350,
+                        maxWidth: '100%',
+                    }}
+                >
+                    <TextField
+                        fullWidth id="fullWidth"
+                        variant="standard"
+                        label="Nickname"
+                        margin="normal"
+                        onChange={onChangeInputHandler}
+                        autoFocus
+                        value={newTitle}
+                        onBlur={editOffHandler}
+                    />
+                </Box>
+
+                : <div className={style.name} onDoubleClick={editOnHandler}> {title}</div>}
+        </div>
     )
 })

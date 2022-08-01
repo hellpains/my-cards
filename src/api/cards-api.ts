@@ -1,11 +1,7 @@
 import axios from "axios";
+import { EMAIL_TEMPLATE } from "../CONST/CONST";
 
-export const cardsAPI = {
-    // getTodolists() {
-    //     return instance.get<TodolistType[]>(`todo-lists`)
-    // },
-
-}
+export const cardsAPI = {}
 
 export const authAPI = {
     register(data: any) {
@@ -24,6 +20,7 @@ export const authAPI = {
 
     // отправить на сервер пустой объект
     me() {
+
         return instance.post('auth/me')
     },
 
@@ -33,9 +30,12 @@ export const authAPI = {
     },
 
     // отправить на сервер email, from, message
-    forgotPassword() {
-        return instance.post('auth/me')
+    forgotPassword(email:string) {
+        return instance.post('https://neko-back.herokuapp.com/2.0/auth/forgot',{email,message:EMAIL_TEMPLATE})
     },
+    setNewPassword(password:string,token:any){
+        return instance.post('auth/set-new-password/',{password:password,resetPasswordToken:token})
+    }
 
 }
 

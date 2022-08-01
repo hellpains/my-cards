@@ -1,5 +1,6 @@
 import {AppThunk} from "../../app/store";
 import {authAPI} from "../../api/cards-api";
+import { handleServerNetworkError } from "../../utils/error-utils";
 
 const initialState = {
     isLoggedIn: false
@@ -27,11 +28,17 @@ export const loginTC = (email: string, password: string, rememberMe: boolean): A
         .then(res => {
             dispatch(setIsLoggedInAC(true))
         })
+        .catch(error => {
+            handleServerNetworkError(error, dispatch)
+        })
 }
 export const logoutTC = (): AppThunk => (dispatch) => {
     authAPI.logout()
         .then(res => {
             dispatch(setIsLoggedInAC(false))
+        })
+        .catch(error => {
+            handleServerNetworkError(error, dispatch)
         })
 }
 

@@ -7,10 +7,45 @@
     background: #FCFCFC;
     box-shadow: 0px 2px 10px rgba(109, 109, 109, 0.25), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
 }
+.backPacks{
+    width: 150px;
+    position: absolute;
+    top: 70px;
+    left: 0px;
+    display: flex;
+    justify-content: space-between;
+}
 
 .header {
+    position: relative;
     display: flex;
     /*width: 100%;*/
     justify-content: space-between;
     align-items: center;
 }
+
+.button button {
+    width: 127px;
+    height: 36px;
+    border: 0;
+    cursor: pointer;
+    background: #FCFCFC;
+    box-shadow: 0px 2px 10px rgba(109, 109, 109, 0.25), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
+    border-radius: 30px;
+}
+
+
+.container {
+    display: flex;
+    align-items: center;
+}
+
+.name {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    margin-right: 10px;
+
+    border-bottom: 1px dashed #000000;
+}
+

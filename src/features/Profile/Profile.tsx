@@ -2,21 +2,30 @@ import React, {useCallback} from 'react';
 import style from './Profile.module.css'
 import {Navigate} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from "../../app/store";
-import {Avatar} from "@mui/material";
+import {Avatar, Button} from "@mui/material";
 import {EditableName} from "./EditableName/EditableName";
 import {updateProfileTC} from "./profile-reducer";
+import {logoutTC} from "../Login/login-reducer";
+import { PATH } from '../../app/App';
 
 export const Profile = () => {
     const isLoggedIn = useAppSelector(state => state.login.isLoggedIn)
     const name = useAppSelector(state => state.profile.name)
+    const email = useAppSelector(state => state.profile.email)
     const dispatch = useAppDispatch()
 
-    const updateName = useCallback((title:string) => {
-        dispatch(updateProfileTC({title}))
-    }, [dispatch])
+    const updateName = useCallback((name: string) => {
+        dispatch(updateProfileTC({name}))
+    }, [])
+
+
+    const logoutHandler = useCallback(() => {
+        dispatch(logoutTC())
+    }, [])
+
 
     if (!isLoggedIn) {
-        return <Navigate to={'/sign-in'}/>
+        return <Navigate to={PATH.LOGIN}/>
     }
 
     return (
@@ -30,7 +39,13 @@ export const Profile = () => {
                     sx={{width: 96, height: 96}}
                 />
             </div>
-            <EditableName title={name} onChange={(title:string)=>updateName(title)}/>
+            <EditableName title={name} onChange={(title: string) => updateName(title)}/>
+            <div className={style.email}>
+                {email}
+            </div>
+            <div className={style.buttonBlock}>
+                <button onClick={logoutHandler} className={style.button}>Log out</button>
+            </div>
         </div>
     );
 };
